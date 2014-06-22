@@ -1,0 +1,17 @@
+{
+    "contents" : "tip<-list(edge=matrix(c(2,1),1,2),\ntip.label=\"species.name\",\nedge.length=1.0,\nNnode=1)\n\n\n\n\n\n\n### binds the two clades of bird orders\ncat(\"((Struthioniformes:21.8,Tinamiformes:21.8):4.1,\",\n    \"((Craciformes:21.6,Galliformes:21.6):1.3,Anseriformes:22.9):3.0):2.1;\",\n    file = \"ex1.tre\", sep = \"\\n\")\ncat(\"(Turniciformes:27.0,(Piciformes:26.3,((Galbuliformes:24.4,\",\n    \"((Bucerotiformes:20.8,Upupiformes:20.8):2.6,\",\n    \"(Trogoniformes:22.1,Coraciiformes:22.1):1.3):1.0):0.6,\",\n    \"(Coliiformes:24.5,(Cuculiformes:23.7,(Psittaciformes:23.1,\",\n    \"(((Apodiformes:21.3,Trochiliformes:21.3):0.6,\",\n    \"(Musophagiformes:20.4,Strigiformes:20.4):1.5):0.6,\",\n    \"((Columbiformes:20.8,(Gruiformes:20.1,Ciconiiformes:20.1):0.7):0.8,\",\n    \"Passeriformes:21.6):0.9):0.6):0.6):0.8):0.5):1.3):0.7):1.0;\",\n    file = \"ex2.tre\", sep = \"\\n\")\ntree.bird1 <- read.tree(\"ex1.tre\")\ntree.bird2 <- read.tree(\"ex2.tre\")\nunlink(c(\"ex1.tre\", \"ex2.tre\")) # clean-up\n(birds <- tree.bird1 + tree.bird2)\nlayout(matrix(1))\nplot(tree.bird1)\nplot(tree.bird2)\nplot(birds)\n\n### examples with random trees\nx <- rtree(1, tip.label = LETTERS[1])\ny <- rtree(4, tip.label = LETTERS[5:8])\nx <- makeNodeLabel(x, prefix = \"x_\")\ny <- makeNodeLabel(y, prefix = \"y_\")\nx$root.edge <- y$root.edge <- .2\n\nz <- bind.tree(x, y, po=.2)\nplot(y, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"y\")\nplot(x, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"x\")\nplot(z, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"z <- bind.tree(x, y, po=.2)\")\n\nz <- bind.tree(x, tip, 2, 0)\nplot(y, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"y\")\nplot(x, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"x\")\nplot(z, show.node.label = TRUE, font = 1, root.edge = TRUE)\ntitle(\"z <- bind.tree(x, y, 2, .1)\")\n\n\n\ntree <- read.nexus(\"Thomas-tree.nex\")\nu <- read.csv(\"Lislevand-states.csv\", as.is=TRUE) \nstatesx <- u$dimorph \nnames(statesx) <- u$species\nstatesx <- statesx[tree$tip.label] \nnames(statesx) <- tree$tip.label \nhead(statesx)\n\nstatesx.15 <- (abs(statesx) > 0.15) + 0 \ntree.clade <- clades.from.polytomies(tree) \nlik <- make.bisse(tree.clade, statesx.15)\n\nunresolved <- read.csv(\"Thomas-unresolved.csv\", as.is=TRUE)\ntree.ex <- read.nexus(\"Thomas-tree-exemplar.nex\") \nstates.ex <- statesx.15[tree.ex$tip.label] \nnames(states.ex) <- tree.ex$tip.label\nstates.ex['Larus']\nlik.ex <- make.bisse(tree.ex, states.ex, unresolved=unresolved)\nfit<-find.mle(lik.ex, p)\n",
+    "created" : 1397762316057.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3984852089",
+    "id" : "9ED14E67",
+    "lastKnownWriteTime" : 1400695000,
+    "path" : "Z:/Documents/ants stuff/worked example.R",
+    "project_path" : "worked example.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

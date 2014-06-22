@@ -1,0 +1,17 @@
+{
+    "contents" : "divide=400;\nlogdivide<-log(divide);\nbinarystates<-NULL;\n\nfor(i in unique(new.ant.csvnoadelo$Genus)) {\n  if(as.numeric(states[i]) < logdivide) {binarystates[i]<-0;} else {binarystates[i]<-1;}\n}\n\ngenuscontainer<-data.frame(tip.label=unique(as.character(new.ant.csvnoadelo$Genus)), Nc=0, n0=0, n1=0);\nfor(i in unique(new.ant.csvnoadelo$Genus)) {\n  genuscontainer[genuscontainer$tip.label==i,]$Nc <- numspecoligowrong[numspecoligowrong$V1==i,]$V2\n}\n\n\nfor(i in unique(new.ant.csvnoadelo$Genus)) {\n  a0=0;\n  a1=0;\n  print(i);\n  for(w in row.names(new.ant.csvnoadelo[new.ant.csvnoadelo$Genus==i,])) {\n    if(new.ant.csvnoadelo[w,3] < divide) {\n      a0<-a0+1;\n    } else {\n      a1<-a1+1;\n    }\n    \n  }\n  Ac<-genuscontainer[genuscontainer$tip.label==i,]$Nc;\n  if (Ac< (a1+a0)) { Ac<-a1+a0;}\n  Ac2<-(Ac-Ac%%(a1+a0))/(a1+a0);\n  a0<-a0*Ac2;\n  a1<-a1*Ac2;\n#   genuscontainer[genuscontainer$tip.label==i,]$n0<-m0;\n#   genuscontainer[genuscontainer$tip.label==i,]$n1<-m1;\n  genuscontainer[genuscontainer$tip.label==i,]$n0<-a0/10;\n  genuscontainer[genuscontainer$tip.label==i,]$n1<-a1/10;\n genuscontainer[genuscontainer$tip.label==i,]$Nc<-Ac/10;\n}\ngenus2<-head(genuscontainer)\nlik.ex<-make.bisse(musstree, binarystates, unresolved=genuscontainer)\nfit<-find.mle(lik.ex, p+.011)\np<-starting.point.bisse(musstree)\n",
+    "created" : 1397680052141.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3534845983",
+    "id" : "BCCD39AE",
+    "lastKnownWriteTime" : 1397929113,
+    "path" : "Z:/Documents/ants stuff/distribution-divider.R",
+    "project_path" : "distribution-divider.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

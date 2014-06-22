@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1397927704066.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CE024ACC",
+    "lastKnownWriteTime" : 7741240723082584096,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "new.ant.csvnoadelo",
+        "contentUrl" : "content?title=new.ant.csvnoadelo&file=c1d1c86ece254d5396e79aa584635fd3.htm",
+        "displayedObservations" : "355",
+        "displayedVariables" : 3,
+        "totalObservations" : "355",
+        "variables" : "3"
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

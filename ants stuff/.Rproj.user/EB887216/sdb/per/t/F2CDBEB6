@@ -1,0 +1,17 @@
+{
+    "contents" : "##lik <- make.musse(musstree, statestate, 3)\nlik <- make.musse(musstree, newbins, 3, sampling.f=0.9)\np <- starting.point.musse(musstree, 3)\n\nlik.basef <- constrain(lik, lambda2 ~ lambda1, lambda3 ~ lambda1, mu2 ~ 0, mu3 ~ 0, mu1~0, q13 ~ q12, q21 ~ q12, q23 ~ q12, q31 ~ q12, q32 ~ q12)\nfit.basef <- find.mle(lik.basef, p[argnames(lik.basef)])\nlik.tf <- constrain(lik, mu1~0, mu2~0, mu3~0)\nfit.tf <- find.mle(lik.tf, p[argnames(lik.tf)])\nlik.irrf <- constrain(lik, q32~0, q21~0, q31~0, q13~0, mu1~0, mu2~0, mu3~0)\nfit.irrf <- find.mle(lik.irrf, p[argnames(lik.irrf)]+.01)\nlik.no13f <- constrain(lik, q13~0, q31~0, mu1~0, mu2~0, mu3~0)\nfit.no13f <- find.mle(lik.no13f, p[argnames(lik.no13f)]+.01)\nlik.no32f <- constrain(lik, q13~0, q31~0, q32~0, mu1~0, mu2~0, mu3~0)\nfit.no32f <- find.mle(lik.no32f, p[argnames(lik.no32f)]+.01)\nlik.eqtransf <- constrain(lik, q13~q31, q12~q21, q23~q32, mu1~0, mu2~0, mu3~0)\nfit.eqtransf <- find.mle(lik.eqtransf, p[argnames(lik.eqtransf)])\nlik.eqno13f <- constrain(lik, q13~0, q31~0, q12~q21, q23~q32, mu1~0, mu2~0, mu3~0)\nfit.eqno13f <- find.mle(lik.eqno13f, p[argnames(lik.eqno13f)])\nlik.eqno32f <- constrain(lik, q13~0, q12~q21, q32~0, q31~0, mu1~0, mu2~0, mu3~0)\nfit.eqno32f <- find.mle(lik.eqno32f, p[argnames(lik.eqno32f)])\nanova(fit.basef, unconstrained=fit.tf, eqno13=fit.eqno13f, irreversible=fit.irrf, no3to2=fit.no32f,  step_wise=fit.no13f, equal_transitions=fit.eqtransf, no32=fit.eqno32f)\n\nlik.f <- constrain(lik, lambda1~0, q13~0, q12~q21, q32~0, q31~0, mu1~0, mu2~0, mu3~0)\nfit.f<-find.mle(lik.f, p[argnames(lik.f)])\n\nanova(fit.tf, other=fit.eqno32f)\n\np <- starting.point.musse(musstree, 3)\nraw_est<-samples.eqno32f[which.max(samples.eqno32f$p),]\nest<-as.numeric(raw_est)\nnames(est)<-names(raw_est)\nfor (i in names(est)) {\n  if (i %in% names(p)) {\n    p[i]<-est[i]\n  }\n}\n\nfor(i in names(medstates)) {if(medstates[i]<log(99)) {newbins[i]=1;} else if(medstates[i]<log(10^4-100)) {newbins[i]=2} else {newbins[i]=3}}\n\nfor(i in names(statesNA)) {if(statesNA[i]<log(99)) {newbins[i]=1;} else if(statesNA[i]<log(10^4-100)) {newbins[i]=2} else {newbins[i]=3}}\n\nfor(i in names(states)) {if(states[i]<log(99)) {newbins[i]=1;} else if(states[i]<log(10^4-100)) {newbins[i]=2} else {newbins[i]=3}}\navec=bvec=cvec=dvec=NULL;\nx=1;\nfor(i in newbins) {if(i==1) {avec[length(avec)+1] <- x; x<-x+1} else if(i==2) {bvec[length(bvec)+1] <- x; x<-x+1} else if (i==3) {cvec[length(cvec)+1] <- x; x<-x+1} else {dvec[length(dvec)+1] <- x; x<-x+1}}\n\n\ns2 <- asr.marginal(lik.eqno32f, coef(fit.eqno32f))\ns2 <- asr.marginal(lik.basef, coef(fit.basef))\ns2 <- asr.marginal(lik.nothing, coef(fit.nothing))\n\nplot(d, show.node.label=TRUE, cex=.7, edge.width=.5, dir=\"u\", label.offset=20) \ntiplabels(pch = 23, cex=d$tip.state/6); tiplabels(pch = 23, cex=d$tip.state[avec]/6, tip=avec, bg=2); tiplabels(pch = 23, cex=d$tip.state[bvec]/6, tip=bvec, bg=3); tiplabels(pch = 23, cex=d$tip.state[cvec]/6, tip=cvec, bg=4)\nnodelabels(thermo=t(s2), piecol=2:5, cex=.5)\n\nedgelabels(cex=.09, edge=1:15)\n\nqqnorm(log(states))\nqqline(log(states), col=2)\n\n\n\n\n",
+    "created" : 1392843145407.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2464640811",
+    "id" : "F2CDBEB6",
+    "lastKnownWriteTime" : 1401048275,
+    "path" : "Z:/Documents/ants stuff/likelihooder.R",
+    "project_path" : "likelihooder.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "\np[1:12]<-runif(12,min=0,max=.15)\nsamples.tf2<-mcmc(lik.tf, p[argnames(lik.tf)], nstep=1000, w=1, prior=make.prior.uniform(0,.15,log=FALSE), print.every=50)\np[1:12]<-runif(12,min=0,max=.15)\nsamples.tf3<-mcmc(lik.tf, p[argnames(lik.tf)], nstep=1000, w=1, prior=make.prior.uniform(0,.15,log=FALSE), print.every=50)\np <- starting.point.musse(musstree, 3)\nsamples.tf4<-mcmc(lik.tf, coef(fit.tf), nstep=1000, w=1, prior=make.prior.exponential(1 / (2 * (p[1] - p[4]))), print.every=50)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndivide=400;\nlogdivide<-log(divide);\nbinarystates<-NULL;\n\nseriallist<-NULL;\ncount=1;\nnam=hurgh=fit=NULL;\nfor(u in 1:length(states)) {\n  \n  logdivide<-sort(states)[u];\n  for(i in unique(new.ant.csvnoadelo$Genus)) {\n    if(as.numeric(states[i]) <= logdivide) {binarystates[i]<-0;} else {binarystates[i]<-1;}\n  }\n  \n  nam<-paste(\"lik\",u, sep=\".\")\n  hurgh<-make.bisse(musstree, binarystates, sampling.f=0.8956);\n  assign(nam,hurgh)\n  nam<-paste(\"fit\",u, sep=\".\")\n  hurgh<-find.mle(hurgh,p)\n  assign(nam,hurgh)\n}\n\nfor(i in 1:length(states)) {\n  nam<-paste(\"fit\",i, sep=\".\")\n  #nam<-paste(nam,\"par\", sep=\"$\")\n  barplot(get(nam)$par)\n  print(nam)\n}\n\n\nfor(i in seriallist) {\n  print(i$par)\n}\nlik.ex<-make.bisse(musstree, binarystates\nfit<-find.mle(lik.ex, p+.011)\np<-starting.point.bisse(musstree)\n\n\n\ncon<-file('ants_FINAL_CSM_185maxage.trees')\nopen(con)\n\n\nreadLines(con, n=1)\nread.table(con,skip=1000,nrow=1) #6-th line\nread.table(con,skip=20,nrow=1) #27-th line\n...\nclose(con)\n\nscan(file=\"ants_FINAL_CSM_185maxage.trees\", what=\"list\", nmax=5000)\n\n",
+    "created" : 1397929458875.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2713345856",
+    "id" : "85079174",
+    "lastKnownWriteTime" : 1401053860,
+    "path" : "Z:/Documents/ants stuff/who-knows.R",
+    "project_path" : "who-knows.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
